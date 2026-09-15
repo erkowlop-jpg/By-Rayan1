@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة التثبت الرقمي - مكافحة الشائعات</title>
+    <!-- استدعاء تصميم Tailwind CSS لتنسيق الموقع -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap');
+        body { font-family: 'Cairo', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col justify-between">
+
+    <!-- رأس الصفحة -->
+    <header class="bg-slate-800 border-b border-slate-700 py-4 shadow-md">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3 space-x-reverse">
+                <div class="bg-indigo-600 p-2.5 rounded-xl text-white shadow-lg">
+                    <i class="fa-solid fa-shield-halved text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg text-white">منصة الوعي الرقمي</h1>
+                    <p class="text-xs text-slate-400">مشروع مدرسي - مدرسة الأنصار المتوسطة</p>
+                </div>
+            </div>
+            <div class="text-xs bg-slate-700 text-indigo-300 px-3 py-1.5 rounded-full border border-slate-600 font-medium">
+                إعداد الطالب: ريان سعيد
+            </div>
+        </div>
+    </header>
+
+    <!-- المحتوى الرئيسي -->
+    <main class="container mx-auto px-4 py-8 max-w-3xl flex-grow">
+        
+        <div class="text-center mb-8">
+            <h2 class="text-2xl md:text-3xl font-black mb-3 text-white">درع الوطن ضد الشائعات والأخبار المضللة</h2>
+            <p class="text-slate-400 text-sm md:text-base">أدخل نص الخبر أو الرسالة التي وصلتك للتحقق منها ومعرفة أثرها على الأمن الوطني والسلام الاجتماعي.</p>
+        </div>
+
+        <!-- صندوق الإدخال -->
+        <div class="bg-slate-800 border border-slate-700 rounded-2xl p-5 shadow-xl mb-6">
+            <label for="newsInput" class="block text-sm font-semibold mb-2 text-indigo-300">
+                <i class="fa-regular fa-pen-to-square ml-1"></i> الصق نص الخبر أو الشائعة هنا:
+            </label>
+            <textarea id="newsInput" rows="4" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-slate-200 focus:outline-none focus:border-indigo-500 transition resize-none text-sm" placeholder="مثال: خبر عاجل عن قرار غير رسمي أو شائعة متداولة..."></textarea>
+            
+            <div class="mt-4 flex justify-end">
+                <button onclick="analyzeNews()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-6 py-2.5 rounded-xl transition shadow-lg flex items-center gap-2 cursor-pointer text-sm">
+                    <i class="fa-solid fa-magnifying-glass"></i> فحص وتحليل النص
+                </button>
+            </div>
+        </div>
+
+        <!-- قسم عرض النتائج (مخفي افتراضياً) -->
+        <div id="resultContainer" class="hidden space-y-4 animate-fade-in">
+            
+            <!-- تنبيه تصنيف الخبر -->
+            <div class="bg-rose-950/40 border border-rose-800/60 rounded-2xl p-4 flex items-start gap-3 shadow-lg">
+                <div class="bg-rose-600 text-white p-2 rounded-xl mt-0.5">
+                    <i class="fa-solid fa-triangle-exclamation text-lg"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-rose-400 text-base">تحذير: خبر مشبوه / شائعة محتملة</h3>
+                    <p class="text-slate-300 text-xs md:text-sm mt-1">هذا النص يحمل مؤشرات أخبار مضللة تهدف لإثارة البلبلة دون استناد لمصادر رسمية معتمدة.</p>
+                </div>
+            </div>
+
+            <!-- الجانب الشرعي -->
+            <div class="bg-slate-800 border border-slate-700 rounded-2xl p-5 shadow-xl">
+                <h4 class="font-bold text-indigo-400 text-sm mb-2 flex items-center gap-2">
+                    <i class="fa-solid fa-book-quran"></i> التوجيه القرآني (التثبت):
+                </h4>
+                <p class="text-slate-200 text-sm leading-relaxed bg-slate-900 p-3.5 rounded-xl border border-slate-700/60 italic">
+                    قال الله تعالى: <span class="text-amber-300 font-semibold">(يَا أَيُّهَا الَّذِينَ آمَنُوا إِن جَاءَكُمْ فَاسِقٌ بِنَبَإٍ فَتَبَيَّنُوا أَن تُصِيبُوا قَوْمًا بِجَهَالَةٍ فَتُصْبِحُوا عَلَىٰ مَا فَعَلْتُمْ نَادِمِينَ)</span> [الحجرات: 6].
+                </p>
+            </div>
+
+            <!-- الأثر الوطني والاجتماعي -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-slate-800 border border-slate-700 rounded-2xl p-4 shadow-xl">
+                    <h4 class="font-bold text-amber-400 text-xs mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-landmark"></i> الأثر على الأمن الوطني:
+                    </h4>
+                    <p class="text-slate-300 text-xs leading-relaxed">
+                        تستهدف الشائعات زعزعة الاستقرار، إضعاف الثقة في المؤسسات الرسمية، وإشغال الدولة بأزمات وهمية تبطئ مسيرة التنمية.
+                    </p>
+                </div>
+                <div class="bg-slate-800 border border-slate-700 rounded-2xl p-4 shadow-xl">
+                    <h4 class="font-bold text-cyan-400 text-xs mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-people-group"></i> الأثر على السلام الاجتماعي:
+                    </h4>
+                    <p class="text-slate-300 text-xs leading-relaxed">
+                        تخلق حالة من الهلع والفزع بين أفراد المجتمع، وتفتت النسيج المجتمعي، وتضر بسمعة وحقوق الأفراد الأبرياء.
+                    </p>
+                </div>
+            </div>
+
+            <!-- العقوبة القانونية -->
+            <div class="bg-slate-800 border border-slate-700 rounded-2xl p-4 shadow-xl">
+                <h4 class="font-bold text-rose-400 text-xs mb-2 flex items-center gap-2">
+                    <i class="fa-solid fa-gavel"></i> المسؤولية القانونية:
+                </h4>
+                <p class="text-slate-300 text-xs leading-relaxed">
+                    إنتاج وتداول الشائعات والأخبار الكاذبة التي تمس النظام العام أو القلق المجتمعي يعرض مرتكبها لعقوبات صارمة ورادعة وفقاً لنظام مكافحة جرائم المعلوماتية.
+                </p>
+            </div>
+
+            <!-- نصيحة أخيرة -->
+            <div class="bg-emerald-950/40 border border-emerald-800/60 rounded-2xl p-4 text-center">
+                <p class="text-emerald-300 text-xs font-semibold">
+                    <i class="fa-solid fa-circle-check ml-1"></i> تذكر دائماً: "قِف عند الحد، ولا تكن جسراً لنشر الشائعات. اعتمد حصرياً على المصادر الرسمية."
+                </p>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- تذييل الصفحة -->
+    <footer class="bg-slate-800 border-t border-slate-700 py-4 text-center text-xs text-slate-400">
+        <p>جميع الحقوق محفوظة © مشروع مدرسة الأنصار المتوسطة | إعداد الطالب: ريان سعيد</p>
+    </footer>
+
+    <!-- كود الجافاسكريبت البسيط للتفاعل -->
+    <script>
+        function analyzeNews() {
+            const inputVal = document.getElementById('newsInput').value.trim();
+            const resultBox = document.getElementById('resultContainer');
+            
+            if(inputVal === "") {
+                alert("الرجاء إدخال نص الخبر أولاً لكي يتم فحصه!");
+                return;
+            }
+
+            // إظهار النتيجة بتأثير لطيف
+            resultBox.classList.remove('hidden');
+            resultBox.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+
+</body>
+</html>
